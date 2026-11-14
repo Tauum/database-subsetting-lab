@@ -4,6 +4,9 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 import hashlib
 import json
+import os
+import re
+import sys
 import shutil
 import subprocess
 
@@ -32,9 +35,8 @@ for table in tables:
 jailer_folder = root.parent / '01_Jailer'
 destination = jailer_folder / 'evidence/subset-run-evidence'
 shutil.copytree(capture, destination, dirs_exist_ok=True)
-masking_log = root / 'storage/jailer/work/json-example-verification.txt'
-if masking_log.exists():
-    shutil.copy2(masking_log, destination / 'masking-verification.txt')
+masking_check = subprocess.run([sys.executable, 'tests/verify_masked_subset.py'], cwd=root, check=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+(destination / 'masking-verification.txt').write_text(masking_check.stdout)
 (destination / 'masked-rows.json').write_text(json.dumps(masked, indent=2, sort_keys=True) + '\n')
 
 stamp = datetime.now(ZoneInfo('Europe/London')).strftime('%d %B %Y, %H:%M %Z')
@@ -113,7 +115,6 @@ summary = [
     'Everything below is the detailed evidence for that single example. All personal details are fabricated.', '',
 ]
 lines[2:2] = summary
-import os
 report_text = '\n'.join(lines)
 report_text = re.sub(r'## IntelliJ schema diagram\n.*?(?=## Complete table extracts)', '', report_text, flags=re.S)
 def rebase_report_link(match):
