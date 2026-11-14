@@ -1,0 +1,10 @@
+03_Local_PoC/storage/
+.idea/
+.DS_Store
+__pycache__/
+*.py[cod]
+01_Jailer/evidence/
+01_Jailer/images/
+01_Jailer/TABLE_EXTRACTS.md
+01_Jailer/DELETED_PARENT_EXAMPLE.md
+03_Local_PoC/jailer/FIRST_RUN_RESULTS.md

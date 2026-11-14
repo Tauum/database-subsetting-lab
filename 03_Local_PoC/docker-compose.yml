@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16@sha256:63e83b5a3dc36a917dccb76fe1bd2ac51f1ec9c1deb47ff20d4f04233bf6eae9
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: poc
+      POSTGRES_PASSWORD: poc_local_only
+      POSTGRES_DB: poc
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - ./storage/postgres:/var/lib/postgresql/data
+      - ./sql/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./sql/02_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U poc -d poc"]
+      interval: 3s
+      retries: 15
+
+  jailer:
+    build:
+      context: ./jailer
+      dockerfile: Dockerfile
+    image: subsetting-lab-jailer:17.3.1
+    working_dir: /opt/jailer
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "cmp -s /opt/jailer-dist/jailer.jar /opt/jailer/jailer.jar && test -x /opt/java/openjdk/bin/java"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    environment:
+      JAVA_TOOL_OPTIONS: "-Djava.awt.headless=true -Djava.io.tmpdir=/work/tmp"
+    volumes:
+      - ./storage/jailer/jailer:/opt/jailer
+      - ./storage/jailer/work:/work
+    depends_on:
+      db:
+        condition: service_healthy

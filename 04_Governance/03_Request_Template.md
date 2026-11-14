@@ -1,0 +1,14 @@
+# Request template
+- Defect reference:
+- Reporter and technical owner:
+- Root table and root ID:
+- Reproduction steps / error signature:
+- Schema and application version:
+- Relevant timestamps and process history:
+- Required JSON/BPMN relationships:
+- Expected dataset size:
+- Extraction approval and read replica:
+- Technical reviewer:
+- Privacy reviewer:
+- Expiry and approved recipients:
+- Outcome: reproduced / not reproduced / blocked

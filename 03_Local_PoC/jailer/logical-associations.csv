@@ -1,0 +1,14 @@
+# Explicit logical associations for this synthetic fixture only.
+organisation_history; organisation; B; n:1; A.record_id=B.id; logical_organisation_history; PoC; ;
+process_instance_history; process_instance; B; n:1; A.record_id=B.id; logical_process_instance_history; PoC; ;
+application_history; application; B; n:1; A.record_id=B.id; logical_application_history; PoC; ;
+participant_history; participant; B; n:1; A.record_id=B.id; logical_participant_history; PoC; ;
+document_history; "document"; B; n:1; A.record_id=B.id; logical_document_history; PoC; ;
+attachment_history; attachment; B; n:1; A.record_id=B.id; logical_attachment_history; PoC; ;
+attachment_metadata_history; attachment_metadata; B; n:1; A.record_id=B.id; logical_attachment_metadata_history; PoC; ;
+task_history; task; B; n:1; A.record_id=B.id; logical_task_history; PoC; ;
+approval_history; approval; B; n:1; A.record_id=B.id; logical_approval_history; PoC; ;
+comment_history; "comment"; B; n:1; A.record_id=B.id; logical_comment_history; PoC; ;
+process_event_history; process_event; B; n:1; A.record_id=B.id; logical_process_event_history; PoC; ;
+external_reference_history; external_reference; B; n:1; A.record_id=B.id; logical_external_reference_history; PoC; ;
+external_reference; process_instance; B; n:1; A.parent_process_id=B.id; logical_external_process; PoC; ;

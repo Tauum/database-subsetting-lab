@@ -1,0 +1,15 @@
+# Subject and condition
+process_instance; T.id=1001; ;
+
+# Do not traverse back from shared organisation to sibling processes.
+inverse-process_instance_organisation_id_fkey; ; ignore
+
+#! block additional subjects
+# Preserve the intentionally orphaned logical reference explicitly.
+external_reference; T.id=11002; ;
+
+#! block export modus
+SQL
+
+#! block version
+17.3.1
